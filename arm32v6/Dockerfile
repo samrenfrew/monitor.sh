@@ -13,8 +13,20 @@ RUN set -x && \
         ca-certificates \
         curl \
         git \
-        mosquitto-clients \
+	wget \
+	gnupg \
         xxd 
+	
+RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key && \
+    apt-key add mosquitto-repo.gpg.key && \
+    cd /etc/apt/sources.list.d/ && \
+    wget http://repo.mosquitto.org/debian/mosquitto-buster.list && \
+    apt-cache search mosquitto \
+    apt-get install \
+	libmosquitto-dev \
+	mosquitto \
+	mosquitto-clients \
+	libmosquitto1 
 
 RUN mkdir /monitor && \
     git clone https://github.com/andrewjfreyer/monitor.git /monitor
