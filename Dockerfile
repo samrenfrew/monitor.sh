@@ -3,6 +3,12 @@ FROM ubuntu:bionic
 LABEL maintainer="Marcin Domański <marcin@kabturek.info>" \
      description="monitor.sh script"
 
+RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key && \
+		sudo apt-key add mosquitto-repo.gpg.key && \
+		cd /etc/apt/sources.list.d/ && \
+		sudo wget http://repo.mosquitto.org/debian/mosquitto-buster.list && \
+		sudo apt-cache search mosquitto
+
 RUN set -x && \
     apt-get update && \
     apt-get install -y  --no-install-recommends \
@@ -13,7 +19,10 @@ RUN set -x && \
         ca-certificates \
         curl \
         git \
-        mosquitto-clients \
+				libmosquitto-dev \
+				mosquitto \
+				mosquitto-clients \
+				libmosquitto1 \
         xxd 
 
 RUN mkdir /monitor && \
