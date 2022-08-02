@@ -22,7 +22,7 @@ RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key && \
     cd /etc/apt/sources.list.d/ && \
     wget http://repo.mosquitto.org/debian/mosquitto-buster.list && \
     apt-cache search mosquitto \
-    apt-get install \
+    apt-get install  --no-install-recommends \
 	libmosquitto-dev \
 	mosquitto \
 	mosquitto-clients \
