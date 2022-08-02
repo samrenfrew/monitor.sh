@@ -14,6 +14,7 @@ RUN set -x && \
         curl \
         git \
 	wget \
+	gnupg \
         xxd 
 	
 RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key && \
