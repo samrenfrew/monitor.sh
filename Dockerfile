@@ -2,12 +2,6 @@ FROM ubuntu:buster
 
 LABEL maintainer="Marcin Domański <marcin@kabturek.info>" \
      description="monitor.sh script"
-
-RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key && \
-    sudo apt-key add mosquitto-repo.gpg.key && \
-    cd /etc/apt/sources.list.d/ && \
-    sudo wget http://repo.mosquitto.org/debian/mosquitto-buster.list && \
-    sudo apt-cache search mosquitto
 		
 RUN set -x && \
     apt-get update && \
@@ -19,11 +13,19 @@ RUN set -x && \
         ca-certificates \
         curl \
         git \
-				libmosquitto-dev \
-				mosquitto \
-				mosquitto-clients \
-				libmosquitto1 \
+	wget \
         xxd 
+	
+RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key && \
+    sudo apt-key add mosquitto-repo.gpg.key && \
+    cd /etc/apt/sources.list.d/ && \
+    sudo wget http://repo.mosquitto.org/debian/mosquitto-buster.list && \
+    sudo apt-cache search mosquitto \
+    apt-get install -y --no-install-recommends \
+	libmosquitto-dev \
+	mosquitto \
+	mosquitto-clients \
+	libmosquitto1 
 
 RUN mkdir /monitor && \
     git clone https://github.com/andrewjfreyer/monitor.git /monitor
