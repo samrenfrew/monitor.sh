@@ -1,4 +1,4 @@
-FROM ubuntu:buster
+FROM ubuntu:bionic
 
 LABEL maintainer="Marcin Domański <marcin@kabturek.info>" \
      description="monitor.sh script"
